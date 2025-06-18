@@ -13,10 +13,18 @@ const client = new Client({
 client.on('ready', (c) => {
   console.log(`${c.user.tag} is connected.`);
 });
+client.on('interactionCreate', (interaction) => {
+  if (!interaction.isChatInputCommand()) return;
+
+  if (interaction.commandName === 'ping') {
+    interaction.reply('pong!');
+  }
+});
 client.on('messageCreate', (msg) => {
   if (msg.author.bot) {
     return;
   }
   console.log(msg);
 });
+
 client.login(process.env.TOKEN);
